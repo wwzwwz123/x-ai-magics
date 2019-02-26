@@ -1,3 +1,3 @@
-1. www.unimrcp.org             MRCP协议，支持ASR/TTS对接
-2. www.asterisk.org            开源的软交换服务器
-3. www.freeswitch.org          开源的软件换服务器
+1. www.unimrcp.org             MRCP鍗忚锛屾敮鎸丄SR/TTS瀵规帴
+2. www.asterisk.org            寮�婧愮殑杞氦鎹㈡湇鍔″櫒
+3. www.freeswitch.org          寮�婧愮殑杞氦鎹㈡湇鍔″櫒
