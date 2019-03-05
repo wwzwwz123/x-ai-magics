@@ -1,0 +1,14 @@
+https://blog.csdn.net/liuxiao723846/article/details/79583327
+需求:
+  安装asterisk14 安装
+
+系统:
+  Centos7.5
+1.关闭防火墙
+
+2.系统更新
+  yum install -y epel-release
+  yum update -y
+3.安装依赖库和依赖服务
+  yum install -y gcc gcc-c++ lynx bison mysql-devel mysql-server php php-mysql php-pear php-mbstring tftp-server httpd make ncurses-devel libtermcap-devel sendmail sendmail-cf caching-nameserver sox newt-devel libxml2-devel libtiff-devel audiofile-devel gtk2-devel subversion kernel-devel git subversion kernel-devel php-process crontabs cronie cronie-anacron wget vim php-xml uuid-devel libtool sqlite-devel unixODBC mysql-connector-odbc
+4.下载
