@@ -1,8 +1,11 @@
 需求:
   安装asterisk14
-
-系统:
+版本:
   Centos7.5
+  libpri-1.5.0
+  DAHDI-2.10.2+2.10.2
+  pjproject-2.3
+  asterisk-14.3.1
 1.关闭防火墙
 2.系统更新
   yum install -y epel-release
@@ -16,16 +19,24 @@
   下载libpri-1.5.0:
         wget http://downloads.asterisk.org/pub/telephony/libpri/old/libpri-1.5.0.tar.gz
   下载DAHDI:
-        cd /usr/local/src
-        wget http://www.pjsip.org/release/2.3/pjproject-2.3.tar.bz2
+        登陆http://downloads.asterisk.org/pub/telephony/dahdi-linux-complete/releases/
+        选择DAHDI-2.10.2+2.10.2下载到本地后,解压,再上传到/usr/lcoal/src
 5.安装
   编译安装libpri:
-        
         tar xzvf libpri-1.5.0.tar.gz
         cd /usr/src/libpri-1.5.0
         make
         make install
   编译安装DAHDI:
+        cd dahdi-linux-complete-2.10.2+2.10.2/
+        make all
+        make install
+        make config
+        /etc/init.d/dahdi restart
+        chkconfig dahdi on
+  编译安装PJproject:
+        cd /usr/local/src
+        wget http://www.pjsip.org/release/2.3/pjproject-2.3.tar.bz2
         tar -jxvf pjproject-2.3.tar.bz2
         cd pjproject-2.3
         ./configure CFLAGS="-DNDEBUG -DPJ_HAS_IPV6=1" --prefix=/usr --libdir=/usr/lib64 --enable-shared --disable-video --disable-sound --disable-opencore-amr
@@ -80,8 +91,4 @@
     asterisk (pid 32117) is running...  //显示
     
     如上显示就是成功安装了asterisk14
-  
-  
-  
-  
   
