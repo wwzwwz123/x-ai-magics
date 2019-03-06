@@ -1,0 +1,87 @@
+需求:
+  安装asterisk14
+
+系统:
+  Centos7.5
+1.关闭防火墙
+2.系统更新
+  yum install -y epel-release
+  yum update -y
+3.安装依赖库和依赖服务
+  yum install -y gcc gcc-c++ lynx bison mysql-devel mysql-server php php-mysql php-pear php-mbstring tftp-server httpd make ncurses-devel libtermcap-devel sendmail sendmail-cf caching-nameserver sox newt-devel libxml2-devel libtiff-devel audiofile-devel gtk2-devel subversion kernel-devel git subversion kernel-devel php-process crontabs cronie cronie-anacron wget vim php-xml uuid-devel libtool sqlite-devel unixODBC mysql-connector-odbc
+4.下载
+  下载asterisk14.3.1:
+       登陆https://downloads.asterisk.org/pub/telephony/asterisk/releases/
+       下载到本地后,解压,再上传到/usr/local/src
+  下载libpri-1.5.0:
+        wget http://downloads.asterisk.org/pub/telephony/libpri/old/libpri-1.5.0.tar.gz
+  下载DAHDI:
+        cd /usr/local/src
+        wget http://www.pjsip.org/release/2.3/pjproject-2.3.tar.bz2
+5.安装
+  编译安装libpri:
+        
+        tar xzvf libpri-1.5.0.tar.gz
+        cd /usr/src/libpri-1.5.0
+        make
+        make install
+  编译安装DAHDI:
+        tar -jxvf pjproject-2.3.tar.bz2
+        cd pjproject-2.3
+        ./configure CFLAGS="-DNDEBUG -DPJ_HAS_IPV6=1" --prefix=/usr --libdir=/usr/lib64 --enable-shared --disable-video --disable-sound --disable-opencore-amr
+        make dep
+        make
+        make install
+        ldconfig -p | grep pj
+   编译安装asterisk14.3.1:
+        cd /usr/local/src/asterisk-14.X.Y
+        ./configure
+        make
+        make install
+   注意:期间各种问题参照https://blog.csdn.net/liuxiao723846/article/details/79583327
+ 6.安装sample及运行asterisk
+    make sample
+    在/etc/asterisk目录下会建立一些文件，最主要的有sip.conf、extensions.conf
+    /usr/sbin/asterisk
+    ps -ef | grep aste
+ 7.安装初始化脚本
+    make config
+    make install-logrotate
+ 8.检查状态
+    首先，确保加载DAHDI驱动程序。使用Linux下的lsmod列出所有已加载的内核模块，使用grep命令过滤输入，只显示名称中包含dahdi的模块
+    lsmod | grep dahdi
+    如果没有输出,则启动dadhi,运行如下:
+    /etc/init.d/dadhi start
+    如果是Red Hat Enterprise Linux, Fedora, and CentOS系统运行如下:
+    service dahdi start
+    如果是Ubuntu,运行:
+    invoke-rc.d dahdi start
+    
+    如果已经启动,则会有如下显示:
+    [root@server asterisk-14.X.Y]# lsmod | grep dahdi
+    dahdi_transcode  7928 1 wctc4xxp    //显示
+    dahdi_voicebus  40464 2 wctdm24xxp,wcte12xp
+    dahdi          196544 12 wctdm24xxp,wcte11xp,wct1xxp,wcte12xp,wct4xxp
+    crc_ccitt        2096 1 dahdi
+    
+    现在DAHDI正在运行，可以运行dahdi_hardware来列出系统中任何与DAHDI兼容的设备。
+    还可以运行dahdi_tool实用程序来显示各种DAHDI兼容设备及其当前状态。
+    [root@server asterisk-14.X.Y]# /etc/init.d/asterisk status
+    asterisk is stopped  //显示
+ 9.启动asterisk14
+    再次使用initscript，这次给它启动操作
+    [root@server asterisk-14.X.Y]# /etc/init.d/asterisk start
+    Starting asterisk:     //显示
+    
+    当Asterisk启动时，它作为后台服务（或守护程序）运行，因此通常不会在命令行上看到任何响应。
+    我们可以检查Asterisk的状态，并使用以下命令查看它是否正在运行。
+    （进程标识符或pid在您的系统上显然会有所不同。）
+    [root@server asterisk-14.X.Y]# /etc/init.d/asterisk status
+    asterisk (pid 32117) is running...  //显示
+    
+    如上显示就是成功安装了asterisk14
+  
+  
+  
+  
+  
