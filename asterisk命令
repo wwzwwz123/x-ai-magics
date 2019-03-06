@@ -1,0 +1,3 @@
+启动asterisk:/etc/init.d/asterisk start
+查看asterisk状态:/etc/init.d/asterisk status
+进入asterisk CLI:asterisk -vvvvvr
