@@ -1,0 +1,18 @@
+版本:
+    dahdi-linux-complete-2.10.2+2.10.2
+    libpri-current
+    pjproject-2.3
+    asterisk-14.3.1
+    unimrcp-deps-1.6.0
+    asterisk-unimrcp-1.5.2
+    unimrcp-1.6.0
+系统:
+    Centos7.5
+    执行前确定asterisk是启动状态的:
+    /etc/init.d/asterisk status
+    若是关闭状态,则启动:
+    /etc/init.d/asterisk start
+1.进入asterisk-unimrcp目录:
+    ./configure --with-asterisk=/usr/sbin/asterisk  --with-asterisk-conf=/etc/asterisk  --with-asterisk-version=14.3.1   --with-unimrcp=/usr/local/src/unimrcp-1.6.0    --disable-res-speech-unimrcp   --disable-app-unimrcp
+                       (asterisk默认编译目录)             (asterisk配置文件目录)             (asterisk版本输入完整版本)                (unimrcp安装目录)                                                                                               
+ 
