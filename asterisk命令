@@ -4,6 +4,14 @@
 加载sip.conf:sip reload
 加载dialplan:dialplan reload
 配置文件目录:cd /etc/asterisk/
+
+
+登陆unimrcp server
+    cd /usr/local/unimrcp/bin
+    ./unimrcpserver
+测试unimrcp client样例
+    cd /usr/local/unimrcp/bin
+    ./umc
   
     
       
