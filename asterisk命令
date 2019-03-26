@@ -3,7 +3,7 @@
 进入asterisk CLI:asterisk -vvvvr
 加载sip.conf:sip reload
 加载dialplan:dialplan reload
-
+配置文件目录:cd /etc/asterisk/
   
     
       
